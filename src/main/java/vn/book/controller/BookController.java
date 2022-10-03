@@ -1,5 +1,6 @@
 package vn.book.controller;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,9 +21,10 @@ public class BookController {
     @Autowired
     private IBookService bookService;
 
-    @GetMapping("/book")
-    public ResponseEntity<Page<Book>> getAllBook(@PageableDefault(value = 9) Pageable pageable) {
-        Page<Book> books = bookService.findAllBook(pageable);
+    @GetMapping("/book/{id}")
+    public ResponseEntity<Page<Book>> getAllBook(@PageableDefault(value = 9) Pageable pageable,
+                                                 @PathVariable int id) {
+        Page<Book> books = bookService.findAllBook(pageable, id);
         if (books.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -30,7 +32,7 @@ public class BookController {
         return new ResponseEntity<>(books, HttpStatus.OK);
     }
 
-    @GetMapping("book/{id}")
+    @GetMapping("book/detail/{id}")
     public ResponseEntity<Optional<Book>> getBook(@PathVariable int id) {
         Optional<Book> book = bookService.findById(id);
         if (!book.isPresent()) {

@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface IBookService {
 
-    Page<Book> findAllBook(Pageable pageable);
+    Page<Book> findAllBook(Pageable pageable, int id);
 
     Optional<Book> findById(int id);
 }
