@@ -11,13 +11,13 @@ import javax.transaction.Transactional;
 @Transactional
 public interface IAppUserRepository extends JpaRepository<AppUser, Integer> {
 
-    @Query(value = "select * from app_user a where a.name = :name", nativeQuery = true)
+    @Query(value = "select * from app_user a where a.username = :name and is_deleted = 0", nativeQuery = true)
     AppUser findAppUserByName(@Param("name") String name);
 
-    @Query(value = "SELECT `name` from app_user where `name` = ?1", nativeQuery = true)
+    @Query(value = "SELECT username from app_user where username = ?1 and is_deleted = 0", nativeQuery = true)
     String existsByUserName(String username);
 
     @Modifying
-    @Query(value = "update app_user set pass_word =?1 where `name` = ?2", nativeQuery = true)
+    @Query(value = "update app_user set password =?1 where username = ?2", nativeQuery = true)
     void saveNewPassword(String password, String name);
 }

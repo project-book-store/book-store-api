@@ -1,5 +1,7 @@
 package vn.book.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -10,17 +12,18 @@ public class AppRole {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String name;
+    private String roleName;
 
     @OneToMany(mappedBy = "appRole")
+    @JsonBackReference
     private List<UserRole> userRoles;
 
     public AppRole() {
     }
 
-    public AppRole(int id, String name, List<UserRole> userRoles) {
+    public AppRole(int id, String roleName, List<UserRole> userRoles) {
         this.id = id;
-        this.name = name;
+        this.roleName = roleName;
         this.userRoles = userRoles;
     }
 
@@ -32,12 +35,12 @@ public class AppRole {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
     public List<UserRole> getUserRoles() {

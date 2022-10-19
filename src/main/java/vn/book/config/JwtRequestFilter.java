@@ -25,12 +25,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
-    /**
-     * Created by: SangNH
-     * Date created: 08/09/2022
-     * Function: For any incoming request this Filter class gets executed
-     * @param request, response, filterChain
-     */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         final String requestTokenHeader = request.getHeader("Authorization");

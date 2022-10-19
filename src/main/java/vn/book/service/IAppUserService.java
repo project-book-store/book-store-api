@@ -4,6 +4,7 @@ import vn.book.model.AppUser;
 
 import javax.mail.MessagingException;
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 public interface IAppUserService {
 
@@ -12,4 +13,8 @@ public interface IAppUserService {
     String existsByUserName(String username) throws MessagingException, UnsupportedEncodingException;
 
     void saveNewPassword(String password, String name);
+
+    void saveAppUser(AppUser appUser);
+
+    List<AppUser> findAllUser();
 }

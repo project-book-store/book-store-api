@@ -19,6 +19,9 @@ public class Promotion {
     private LocalDate startDate;
     private LocalDate endDate;
 
+    @Column(name = "is_delete", columnDefinition = "Bit(1) Default 0")
+    private boolean isDelete;
+
     @OneToMany(mappedBy = "promotion")
     @JsonBackReference
     private List<Book> books;
@@ -90,5 +93,13 @@ public class Promotion {
 
     public void setBooks(List<Book> books) {
         this.books = books;
+    }
+
+    public boolean isDelete() {
+        return isDelete;
+    }
+
+    public void setDelete(boolean delete) {
+        isDelete = delete;
     }
 }

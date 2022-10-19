@@ -39,10 +39,10 @@ public class JwtUserDetailsService implements UserDetailsService {
 
         if (userRoles != null) {
             for (UserRole item: userRoles) {
-                GrantedAuthority authority = new SimpleGrantedAuthority(item.getAppRole().getName());
+                GrantedAuthority authority = new SimpleGrantedAuthority(item.getAppRole().getRoleName());
                 grantList.add(authority);
             }
         }
-        return new User(appUser.getName(), appUser.getPassWord(), grantList);
+        return new User(appUser.getUsername(), appUser.getPassword(), grantList);
     }
 }

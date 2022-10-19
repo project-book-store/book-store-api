@@ -11,6 +11,7 @@ import vn.book.service.IAppUserService;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 @Service
 public class AppUserServiceImpl implements IAppUserService {
@@ -21,13 +22,6 @@ public class AppUserServiceImpl implements IAppUserService {
     @Autowired
     private JavaMailSender javaMailSender;
 
-    /**
-     * Create by SangNH
-     * Date: 08/09/2022
-     * find list by name
-     * @param name
-     * @return appUserRepository.findAppUserByName(name)
-     */
     @Override
     public AppUser findByName(String name) {
         return appUserRepository.findAppUserByName(name);
@@ -45,6 +39,16 @@ public class AppUserServiceImpl implements IAppUserService {
     @Override
     public void saveNewPassword(String password, String name) {
         appUserRepository.saveNewPassword(password, name);
+    }
+
+    @Override
+    public void saveAppUser(AppUser appUser) {
+        appUserRepository.save(appUser);
+    }
+
+    @Override
+    public List<AppUser> findAllUser() {
+        return appUserRepository.findAll();
     }
 
 

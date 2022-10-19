@@ -41,4 +41,25 @@ public class BookController {
 
         return new ResponseEntity<>(book, HttpStatus.OK);
     }
+
+    @GetMapping("/bestSellingBook")
+    public ResponseEntity<Page<Book>> getBestSellingBook(@PageableDefault(value = 9) Pageable pageable) {
+        Page<Book> books = bookService.findAllBestSellingBook(pageable);
+        if (books.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
+        return new ResponseEntity<>(books, HttpStatus.OK);
+    }
+
+    @GetMapping("/historyBook/{customerId}")
+    public ResponseEntity<Page<Book>> getAllHistoryBook(@PageableDefault(value = 9) Pageable pageable,
+                                                 @PathVariable int customerId) {
+        Page<Book> books = bookService.findAllHistoryBook(pageable, customerId);
+        if (books.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
+        return new ResponseEntity<>(books, HttpStatus.OK);
+    }
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 public class Book {
@@ -34,6 +35,10 @@ public class Book {
     @ManyToOne
     @JoinColumn(name = "promotion_id", referencedColumnName = "id")
     private Promotion promotion;
+
+    @OneToMany(mappedBy = "book")
+    @JsonBackReference
+    private List<BooksSold> booksSolds;
 
     public Book() {
     }
@@ -174,5 +179,13 @@ public class Book {
 
     public void setPromotion(Promotion promotion) {
         this.promotion = promotion;
+    }
+
+    public List<BooksSold> getBooksSolds() {
+        return booksSolds;
+    }
+
+    public void setBooksSolds(List<BooksSold> booksSolds) {
+        this.booksSolds = booksSolds;
     }
 }

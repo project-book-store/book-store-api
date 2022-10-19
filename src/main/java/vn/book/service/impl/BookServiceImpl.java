@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import vn.book.model.Book;
+import vn.book.model.BooksSold;
 import vn.book.repository.IBookRepository;
 import vn.book.service.IBookService;
 
@@ -24,5 +25,20 @@ public class BookServiceImpl implements IBookService {
     @Override
     public Optional<Book> findById(int id) {
         return bookRepository.findById(id);
+    }
+
+    @Override
+    public void save(Book book) {
+
+    }
+
+    @Override
+    public Page<Book> findAllBestSellingBook(Pageable pageable) {
+        return bookRepository.findAllBestSellingBook(pageable);
+    }
+
+    @Override
+    public Page<Book> findAllHistoryBook(Pageable pageable, int customerId) {
+        return bookRepository.findAllHistoryBook(pageable, customerId);
     }
 }
