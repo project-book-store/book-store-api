@@ -29,7 +29,7 @@ public class BookServiceImpl implements IBookService {
 
     @Override
     public void save(Book book) {
-
+        bookRepository.save(book);
     }
 
     @Override
@@ -40,5 +40,21 @@ public class BookServiceImpl implements IBookService {
     @Override
     public Page<Book> findAllHistoryBook(Pageable pageable, int customerId) {
         return bookRepository.findAllHistoryBook(pageable, customerId);
+    }
+
+    @Override
+    public Page<Book> getAllBook(Pageable pageable, String keySearch) {
+        return bookRepository.getAllBook(pageable, "%" + keySearch + "%");
+    }
+
+    @Override
+    public void deleteByIdBook(int id) {
+        bookRepository.deleteByIdBook(id);
+    }
+
+    @Override
+    public void editBook(Book book) {
+        bookRepository.editBook(book.getBookCode(), book.getNameBook(), book.getImages(), book.getAuthor(), book.getTranslator(), book.getPublishingCompany()
+                , book.getNumberPages(), book.getSize(), book.getReleaseDate(), book.getPrice(), book.getAmount(), book.getCategory(), book.getPromotion(), book.getId());
     }
 }

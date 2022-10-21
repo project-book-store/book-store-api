@@ -31,6 +31,6 @@ public class CustomerServiceImpl implements ICustomerService {
 
     @Override
     public void edit(int id, Customer customer) {
-        customerRepository.editCustomer(customer.getAddress(), customer.getCity(), customer.getCustomerName(), customer.getDistrict(), customer.getNote(), customer.getPhoneNumber(), id);
+        customerRepository.editCustomer(customer.getAddress(), customer.getCity(), customer.getCustomerName(), customer.getDistrict(), customer.getNote(), customer.getPhoneNumber(), customer.getImages(), customer.getDateOfBirth(), id);
     }
 }
