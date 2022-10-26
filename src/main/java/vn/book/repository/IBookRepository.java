@@ -20,8 +20,8 @@ public interface IBookRepository extends JpaRepository<Book, Integer> {
            countQuery = "select count(*) from book where is_delete = 0 and category_id = :id")
     Page<Book> findAllBook(Pageable pageable, @Param("id") int id);
 
-    @Query(value = "select b.* from book b join books_sold bs on bs.id = b.id", nativeQuery = true,
-            countQuery = "select count (b.*) from join books_sold bs on bs.id = b.id")
+    @Query(value = "select b.* from book b join books_sold bs on bs.book_id = b.id group by b.id", nativeQuery = true,
+            countQuery = "select count (b.*) from book b join books_sold bs on bs.book_id = b.id group by b.id")
     Page<Book> findAllBestSellingBook(Pageable pageable);
 
     @Query(value = "select b.*, bs.customer_id from book b join books_sold bs on bs.id = b.id where bs.customer_id =:customerId", nativeQuery = true,

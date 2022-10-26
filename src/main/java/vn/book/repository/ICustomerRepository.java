@@ -8,6 +8,7 @@ import vn.book.model.Customer;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.util.List;
 
 @Transactional
 public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
@@ -20,4 +21,7 @@ public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
 
     @Query(value = "select * from customer where user_id = :userId", nativeQuery = true)
     Customer findByUserId(@Param("userId") int userId);
+
+    @Query(value = "select c.* from books_sold bs join customer c on c.id = bs.customer_id group by c.customer_name limit 10", nativeQuery = true)
+    List<Customer> findAllCustomer();
 }
