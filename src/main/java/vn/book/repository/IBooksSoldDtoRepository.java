@@ -10,6 +10,9 @@ import java.util.List;
 
 @Transactional
 public interface IBooksSoldDtoRepository extends JpaRepository<BooksSold, Integer> {
-    @Query(value = "select *, sum(quantity) as quantityBook from books_sold group by customer_id limit 10", nativeQuery = true)
+    @Query(value = "select *, sum(quantity) as quantityBook from books_sold group by customer_id order by quantityBook desc limit 10", nativeQuery = true)
     List<BooksSoldDto> findAllQuantityBook();
+
+    @Query(value = "select *, sum(quantity) as quantityBook from books_sold group by book_id order by quantityBook desc limit 10", nativeQuery = true)
+    List<BooksSoldDto> findAllQuantityBooksSold();
 }

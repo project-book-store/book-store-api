@@ -17,8 +17,6 @@ public class Customer {
     private String customerName;
     private String phoneNumber;
     private String note;
-    private String city;
-    private String district;
     private String address;
     private String images;
     private LocalDate dateOfBirth;
@@ -38,15 +36,17 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(int id, String customerName, String phoneNumber, String note, String city, String district, String address, List<Card> cards) {
+    public Customer(int id, String customerName, String phoneNumber, String note, String address, String images, LocalDate dateOfBirth, AppUser appUser, List<Card> cards, List<BooksSold> booksSolds) {
         this.id = id;
         this.customerName = customerName;
         this.phoneNumber = phoneNumber;
         this.note = note;
-        this.city = city;
-        this.district = district;
         this.address = address;
+        this.images = images;
+        this.dateOfBirth = dateOfBirth;
+        this.appUser = appUser;
         this.cards = cards;
+        this.booksSolds = booksSolds;
     }
 
     public int getId() {
@@ -79,22 +79,6 @@ public class Customer {
 
     public void setNote(String note) {
         this.note = note;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getDistrict() {
-        return district;
-    }
-
-    public void setDistrict(String district) {
-        this.district = district;
     }
 
     public String getAddress() {

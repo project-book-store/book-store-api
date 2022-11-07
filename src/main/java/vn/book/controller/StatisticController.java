@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vn.book.dto.BooksSoldDto;
+import vn.book.model.Book;
 import vn.book.model.BooksSold;
 import vn.book.model.Customer;
 import vn.book.service.IStatisticService;
@@ -31,6 +32,18 @@ public class StatisticController {
     @GetMapping("/statistic/quantityBook")
     public ResponseEntity<List<BooksSoldDto>> getAllQuantityBook() {
         List<BooksSoldDto> booksSoldDtos = statisticService.findAllQuantityBook();
+        return new ResponseEntity<>(booksSoldDtos, HttpStatus.OK);
+    }
+
+    @GetMapping("/statistic/book")
+    public ResponseEntity<List<Book>> getAllBookName() {
+        List<Book> books = statisticService.findAllBook();
+        return new ResponseEntity<>(books, HttpStatus.OK);
+    }
+
+    @GetMapping("/statistic/quantityBooksSold")
+    public ResponseEntity<List<BooksSoldDto>> getAllQuantityBooksSold() {
+        List<BooksSoldDto> booksSoldDtos = statisticService.findAllQuantityBooksSold();
         return new ResponseEntity<>(booksSoldDtos, HttpStatus.OK);
     }
 }

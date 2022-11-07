@@ -6,13 +6,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import vn.book.model.Book;
-import vn.book.model.BooksSold;
-import vn.book.model.Category;
-import vn.book.model.Promotion;
+import vn.book.model.*;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.util.List;
 
 @Transactional
 public interface IBookRepository extends JpaRepository<Book, Integer> {
@@ -24,7 +22,7 @@ public interface IBookRepository extends JpaRepository<Book, Integer> {
             countQuery = "select count (b.*) from book b join books_sold bs on bs.book_id = b.id group by b.id")
     Page<Book> findAllBestSellingBook(Pageable pageable);
 
-    @Query(value = "select b.*, bs.customer_id from book b join books_sold bs on bs.id = b.id where bs.customer_id =:customerId", nativeQuery = true,
+    @Query(value = "select b.*, bs.customer_id from book b join books_sold bs on bs.book_id = b.id where bs.customer_id =:customerId", nativeQuery = true,
             countQuery = "select count (b.*, bs.customer_id) from book b join books_sold bs on bs.id = b.id where bs.customer_id =:customerId")
     Page<Book> findAllHistoryBook(Pageable pageable, @Param("customerId") int customerId);
 
@@ -42,4 +40,7 @@ public interface IBookRepository extends JpaRepository<Book, Integer> {
     void editBook(@Param("bookCode") String bookCode, @Param("nameBook") String nameBook, @Param("images") String images, @Param("author") String author, @Param("translator") String translator, @Param("publishingCompany") String publishingCompany,
                   @Param("numberPages") int numberPages, @Param("size") String size, @Param("releaseDate") LocalDate releaseDate, @Param("price") double price
             , @Param("amount") int amount, @Param("category") Category category, @Param("promotion") Promotion promotion, @Param("id") int id);
+
+    @Query(value = "select b.*, sum(bs.quantity) as quantityBook from books_sold bs join book b on b.id = bs.book_id group by b.id order by quantityBook desc limit 10", nativeQuery = true)
+    List<Book> findAllBook();
 }

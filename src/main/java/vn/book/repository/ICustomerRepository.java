@@ -14,14 +14,14 @@ import java.util.List;
 public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
 
     @Modifying
-    @Query(value = "update customer set address =:address, city =:city, customer_name =:customerName, " +
-            " district =:district, note =:note, phone_number =:phoneNumber, images =:images, date_of_birth =:dateOfBirth where id =:id", nativeQuery = true)
-    void editCustomer(@Param("address") String address, @Param("city") String city, @Param("customerName") String customerName
-    , @Param("district") String district, @Param("note") String note, @Param("phoneNumber") String phoneNumber, @Param("images") String images, @Param("dateOfBirth") LocalDate dateOfBirth, @Param("id") int id);
+    @Query(value = "update customer set address =:address, customer_name =:customerName, " +
+            " note =:note, phone_number =:phoneNumber, images =:images, date_of_birth =:dateOfBirth where id =:id", nativeQuery = true)
+    void editCustomer(@Param("address") String address, @Param("customerName") String customerName
+    , @Param("note") String note, @Param("phoneNumber") String phoneNumber, @Param("images") String images, @Param("dateOfBirth") LocalDate dateOfBirth, @Param("id") int id);
 
     @Query(value = "select * from customer where user_id = :userId", nativeQuery = true)
     Customer findByUserId(@Param("userId") int userId);
 
-    @Query(value = "select c.* from books_sold bs join customer c on c.id = bs.customer_id group by c.customer_name limit 10", nativeQuery = true)
+    @Query(value = "select c.*, sum(bs.quantity) as quantityBook from books_sold bs join customer c on c.id = bs.customer_id group by c.customer_name order by quantityBook desc limit 10", nativeQuery = true)
     List<Customer> findAllCustomer();
 }
